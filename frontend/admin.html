@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Panel de Administración — Refugio del Lago</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,300;0,400;1,300;1,400&family=Raleway:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="admin.css" />
+</head>
+<body>
+
+<!-- ── LOGIN SCREEN ─────────────────────────────────────────────── -->
+<div id="adminLoginScreen" class="login-screen">
+  <div class="login-card">
+    <img class="login-logo" src="img/HOTEL LOGO.png" alt="Refugio del Lago" />
+    <p class="login-eyebrow">Portal de Administración</p>
+    <h1 class="login-title">Refugio<br>del <em>Lago</em></h1>
+    <div class="login-divider"></div>
+    <form id="loginForm" class="login-form" novalidate>
+      <div class="login-field">
+        <label class="adm-label" for="loginUser">Usuario</label>
+        <input class="adm-input" type="text" id="loginUser" name="username"
+               autocomplete="username" spellcheck="false" required />
+      </div>
+      <div class="login-field">
+        <label class="adm-label" for="loginPass">Contraseña</label>
+        <input class="adm-input" type="password" id="loginPass" name="password"
+               autocomplete="current-password" required />
+      </div>
+      <p class="login-error" id="loginError" role="alert" aria-live="polite"></p>
+      <button class="btn-submit" type="submit">Ingresar al panel</button>
+    </form>
+  </div>
+</div>
+
+<div class="admin-layout" style="display:none">
+
+  <!-- ── SIDEBAR ──────────────────────────────────────────────── -->
+  <aside class="sidebar">
+    <div class="sidebar-brand">
+      <div class="sidebar-brand-eyebrow">Panel de Administración</div>
+      <div class="sidebar-brand-name">Refugio<br>del <em>Lago</em></div>
+    </div>
+
+    <nav class="sidebar-nav">
+      <div class="nav-group-label">Principal</div>
+      <a class="nav-item active" data-section="dashboard" href="#">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/>
+          <rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/>
+        </svg>
+        Resumen
+      </a>
+      <a class="nav-item" data-section="reservas" href="#">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <rect x="3" y="4" width="18" height="18" rx="2"/><path d="M3 9h18M8 2v4M16 2v4"/>
+        </svg>
+        Reservas
+      </a>
+      <a class="nav-item" data-section="disponibilidad" href="#">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <circle cx="12" cy="12" r="9"/><path d="M8 12l3 3 5-5"/>
+        </svg>
+        Disponibilidad
+      </a>
+
+      <div class="nav-group-label" style="margin-top:10px">Gestión</div>
+      <a class="nav-item" data-section="habitaciones" href="#">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M3 10.5L12 3l9 7.5V21H3V10.5z"/><path d="M9 21V12h6v9"/>
+        </svg>
+        Habitaciones
+      </a>
+      <a class="nav-item" data-section="huespedes" href="#">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <circle cx="12" cy="7" r="4"/><path d="M4 21c0-4 3.6-7 8-7s8 3 8 7"/>
+        </svg>
+        Huéspedes
+      </a>
+    </nav>
+
+    <div class="sidebar-footer">
+      <div class="sidebar-user">
+        <div class="sidebar-avatar">ADM</div>
+        <div>
+          <div class="sidebar-user-name">admin</div>
+          <div class="sidebar-user-role">Administrador</div>
+        </div>
+      </div>
+      <button class="sidebar-logout" id="logoutBtn" aria-label="Cerrar sesión">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/>
+          <polyline points="16 17 21 12 16 7"/>
+          <line x1="21" y1="12" x2="9" y2="12"/>
+        </svg>
+        Cerrar sesión
+      </button>
+    </div>
+  </aside>
+
+  <!-- ── MAIN ─────────────────────────────────────────────────── -->
+  <main class="main">
+
+    <div class="topbar">
+      <div class="topbar-left">
+        <span class="topbar-title">Refugio del Lago</span>
+        <span class="topbar-sep">—</span>
+        <span class="topbar-sub" id="topbarSub">Resumen General</span>
+      </div>
+      <div class="topbar-right">
+        <span class="topbar-date" id="topbarDate"></span>
+        <button class="topbar-notif" title="Notificaciones">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9M13.73 21a2 2 0 01-3.46 0"/>
+          </svg>
+          <span class="notif-dot"></span>
+        </button>
+        <a class="topbar-link" href="index.html">← Ver sitio</a>
+      </div>
+    </div>
+
+    <div class="content">
+
+      <!-- ═══════════════════════════════════════════════════════
+           RESUMEN
+           ═══════════════════════════════════════════════════════ -->
+      <div class="section active" id="sec-dashboard">
+        <p class="adm-eyebrow">Vista general</p>
+        <h1 class="page-title">Bienvenido de vuelta, Administrador</h1>
+
+        <!-- 3 KPIs operacionales — sin métricas financieras -->
+        <div class="kpi-grid kpi-grid--3">
+          <div class="kpi-card">
+            <div class="kpi-label">Reservas activas</div>
+            <div class="kpi-value" id="kpiReservasActivas">—</div>
+            <div class="kpi-note" id="kpiReservasNote">Cargando...</div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-label">Check-ins hoy</div>
+            <div class="kpi-value" id="kpiCheckinsHoy">—</div>
+            <div class="kpi-note" id="kpiCheckinsNote">Cargando...</div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-label">Habitaciones disponibles</div>
+            <div class="kpi-value" id="kpiHabDisponibles">— <span class="kpi-value-unit" id="kpiHabTotal"></span></div>
+            <div class="kpi-note" id="kpiHabNote">Cargando...</div>
+          </div>
+        </div>
+
+        <div class="two-col">
+          <!-- Próximas reservas -->
+          <div class="adm-card">
+            <div class="adm-card-head">
+              <span class="adm-card-title">Próximas Reservas</span>
+              <button class="adm-card-action" onclick="switchSection('reservas')">Ver todas</button>
+            </div>
+            <table class="data-table">
+              <thead><tr><th>Huésped</th><th>Habitación</th><th>Fechas</th><th>Estado</th></tr></thead>
+              <tbody id="dashProximasBody">
+                <tr><td colspan="4" style="text-align:center;padding:24px">Cargando...</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Estado de habitaciones -->
+          <div class="adm-card">
+            <div class="adm-card-head">
+              <span class="adm-card-title">Estado de Habitaciones</span>
+              <button class="adm-card-action" onclick="switchSection('habitaciones')">Gestionar</button>
+            </div>
+            <div id="dashEstadoHabitaciones">
+              <div style="padding:24px;text-align:center;color:#888">Cargando...</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ═══════════════════════════════════════════════════════
+           RESERVAS
+           ═══════════════════════════════════════════════════════ -->
+      <div class="section" id="sec-reservas">
+        <p class="adm-eyebrow">Gestión</p>
+        <h1 class="page-title">Reservas</h1>
+
+        <div class="filters" data-filter-table="tabla-reservas">
+          <button class="filter-btn active" data-filter="all">Todas</button>
+          <button class="filter-btn" data-filter="checkin">Check-in hoy</button>
+          <button class="filter-btn" data-filter="confirmada">Confirmadas</button>
+          <button class="filter-btn" data-filter="pendiente">Pendientes</button>
+          <button class="filter-btn" data-filter="cancelada">Canceladas</button>
+        </div>
+
+        <div class="adm-card">
+          <div class="adm-card-head"><span class="adm-card-title">Mayo 2026</span></div>
+          <table class="data-table" id="tabla-reservas">
+            <thead><tr>
+              <th>#</th><th>Huésped</th><th>Habitación</th>
+              <th>Check-in</th><th>Check-out</th><th>Huéspedes</th><th>Estado</th><th>Acciones</th>
+            </tr></thead>
+            <tbody id="tabla-reservas-body">
+              <tr data-status="checkin">
+                <td class="ref">RDL-041</td>
+                <td><div class="guest-name">HUESPED 1</div><div class="guest-origin">Buenos Aires</div></td>
+                <td>Suite del Bosque</td><td>12 may</td><td>16 may</td><td>2</td>
+                <td><span class="adm-badge adm-badge-active">Check-in</span></td>
+              </tr>
+              <tr data-status="confirmada">
+                <td class="ref">RDL-042</td>
+                <td><div class="guest-name">HUESPED 2</div><div class="guest-origin">Montevideo</div></td>
+                <td>Cabaña del Lago</td><td>13 may</td><td>17 may</td><td>3</td>
+                <td><span class="adm-badge adm-badge-ok">Confirmada</span></td>
+              </tr>
+              <tr data-status="confirmada">
+                <td class="ref">RDL-043</td>
+                <td><div class="guest-name">HUESPED 3</div><div class="guest-origin">Santiago</div></td>
+                <td>Habitación Lago</td><td>14 may</td><td>18 may</td><td>2</td>
+                <td><span class="adm-badge adm-badge-ok">Confirmada</span></td>
+              </tr>
+              <tr data-status="pendiente">
+                <td class="ref">RDL-044</td>
+                <td><div class="guest-name">HUESPED 4</div><div class="guest-origin">São Paulo</div></td>
+                <td>Suite del Bosque</td><td>18 may</td><td>22 may</td><td>2</td>
+                <td><span class="adm-badge adm-badge-pending">Pendiente</span></td>
+              </tr>
+              <tr data-status="confirmada">
+                <td class="ref">RDL-045</td>
+                <td><div class="guest-name">HUESPED 5</div><div class="guest-origin">Lima</div></td>
+                <td>Cabaña del Lago</td><td>20 may</td><td>25 may</td><td>4</td>
+                <td><span class="adm-badge adm-badge-ok">Confirmada</span></td>
+              </tr>
+              <tr data-status="cancelada">
+                <td class="ref">RDL-040</td>
+                <td><div class="guest-name">HUESPED 6</div><div class="guest-origin">Ciudad de México</div></td>
+                <td>Loft del Mirador</td><td>4 may</td><td>8 may</td><td>2</td>
+                <td><span class="adm-badge adm-badge-canceled">Cancelada</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- ═══════════════════════════════════════════════════════
+           DISPONIBILIDAD
+           ═══════════════════════════════════════════════════════ -->
+      <div class="section" id="sec-disponibilidad">
+        <p class="adm-eyebrow">Calendario</p>
+        <h1 class="page-title">Disponibilidad</h1>
+
+        <div class="two-col">
+          <div class="adm-card">
+            <div class="adm-card-head">
+              <span class="adm-card-title" id="calMonth">Mayo 2026</span>
+              <div style="display:flex;gap:6px">
+                <button class="cal-nav-btn" id="calPrev">‹</button>
+                <button class="cal-nav-btn" id="calNext">›</button>
+              </div>
+            </div>
+            <div class="cal-wrap">
+              <div class="cal-grid" id="calGrid"></div>
+              <div class="cal-legend">
+                <div class="cal-legend-item"><div class="cal-legend-dot" style="background:rgba(184,147,63,.35)"></div><span class="cal-legend-lbl">Ocupado</span></div>
+                <div class="cal-legend-item"><div class="cal-legend-dot" style="background:var(--forest)"></div><span class="cal-legend-lbl">Hoy</span></div>
+                <div class="cal-legend-item"><div class="cal-legend-dot" style="border:1px solid rgba(20,48,31,.15)"></div><span class="cal-legend-lbl">Libre</span></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="adm-card">
+            <div class="adm-card-head"><span class="adm-card-title">Por Habitación</span></div>
+            <div class="occ-item">
+              <div class="occ-num">01</div>
+              <div class="occ-info"><div class="occ-name">Suite del Bosque</div><div class="occ-dates">Libre: 16–18 may · 22 may en adelante</div></div>
+              <span class="adm-badge adm-badge-active">Ocupada</span>
+            </div>
+            <div class="occ-item">
+              <div class="occ-num">02</div>
+              <div class="occ-info"><div class="occ-name">Cabaña del Lago</div><div class="occ-dates">Libre: ahora · 13–20 may</div></div>
+              <span class="adm-badge adm-badge-ok">Disponible</span>
+            </div>
+            <div class="occ-item">
+              <div class="occ-num">03</div>
+              <div class="occ-info"><div class="occ-name">Habitación Lago</div><div class="occ-dates">Libre: ahora · hasta 14 may</div></div>
+              <span class="adm-badge adm-badge-ok">Disponible</span>
+            </div>
+            <div class="occ-item">
+              <div class="occ-num">04</div>
+              <div class="occ-info"><div class="occ-name">Habitación Bosque</div><div class="occ-dates">Libre: 18 may en adelante</div></div>
+              <span class="adm-badge adm-badge-active">Ocupada</span>
+            </div>
+            <div class="occ-item">
+              <div class="occ-num">05</div>
+              <div class="occ-info"><div class="occ-name">Loft del Mirador</div><div class="occ-dates">Disponible todo mayo</div></div>
+              <span class="adm-badge adm-badge-ok">Disponible</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ═══════════════════════════════════════════════════════
+           HABITACIONES
+           ═══════════════════════════════════════════════════════ -->
+      <div class="section" id="sec-habitaciones">
+        <p class="adm-eyebrow">Gestión</p>
+        <h1 class="page-title">Habitaciones</h1>
+
+        <div style="margin-bottom:22px">
+          <button class="btn-action" data-modal="room">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
+            Agregar habitación
+          </button>
+        </div>
+
+        <div class="rooms-admin-grid" id="roomsAdminGrid">
+          <div class="room-admin-card">
+            <div class="room-admin-thumb">
+              <div class="room-admin-thumb-badge"><span class="adm-badge adm-badge-active">Ocupada</span></div>
+            </div>
+            <div class="room-admin-body">
+              <div class="room-admin-name">Suite del Bosque</div>
+              <div class="room-admin-type">Suite · 2 personas · Vista al lago</div>
+              <div class="room-admin-meta">
+                <div class="room-admin-price">$310 <span>/ noche</span></div>
+                <button class="btn-ghost" data-modal="room" data-prefill="Suite del Bosque">Editar</button>
+              </div>
+            </div>
+          </div>
+          <div class="room-admin-card">
+            <div class="room-admin-thumb v2">
+              <div class="room-admin-thumb-badge"><span class="adm-badge adm-badge-ok">Disponible</span></div>
+            </div>
+            <div class="room-admin-body">
+              <div class="room-admin-name">Cabaña del Lago</div>
+              <div class="room-admin-type">Cabaña · 4 personas · Acceso privado</div>
+              <div class="room-admin-meta">
+                <div class="room-admin-price">$245 <span>/ noche</span></div>
+                <button class="btn-ghost" data-modal="room" data-prefill="Cabaña del Lago">Editar</button>
+              </div>
+            </div>
+          </div>
+          <div class="room-admin-card">
+            <div class="room-admin-thumb v3">
+              <div class="room-admin-thumb-badge"><span class="adm-badge adm-badge-ok">Disponible</span></div>
+            </div>
+            <div class="room-admin-body">
+              <div class="room-admin-name">Habitación Lago</div>
+              <div class="room-admin-type">Habitación · 2 personas · Balcón</div>
+              <div class="room-admin-meta">
+                <div class="room-admin-price">$180 <span>/ noche</span></div>
+                <button class="btn-ghost" data-modal="room" data-prefill="Habitación Lago">Editar</button>
+              </div>
+            </div>
+          </div>
+          <div class="room-admin-card">
+            <div class="room-admin-thumb">
+              <div class="room-admin-thumb-badge"><span class="adm-badge adm-badge-active">Ocupada</span></div>
+            </div>
+            <div class="room-admin-body">
+              <div class="room-admin-name">Habitación Bosque</div>
+              <div class="room-admin-type">Habitación · 2 personas · Vista al bosque</div>
+              <div class="room-admin-meta">
+                <div class="room-admin-price">$165 <span>/ noche</span></div>
+                <button class="btn-ghost" data-modal="room" data-prefill="Habitación Bosque">Editar</button>
+              </div>
+            </div>
+          </div>
+          <div class="room-admin-card">
+            <div class="room-admin-thumb v2">
+              <div class="room-admin-thumb-badge"><span class="adm-badge adm-badge-ok">Disponible</span></div>
+            </div>
+            <div class="room-admin-body">
+              <div class="room-admin-name">Loft del Mirador</div>
+              <div class="room-admin-type">Loft · 2 personas · Terraza panorámica</div>
+              <div class="room-admin-meta">
+                <div class="room-admin-price">$215 <span>/ noche</span></div>
+                <button class="btn-ghost" data-modal="room" data-prefill="Loft del Mirador">Editar</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ═══════════════════════════════════════════════════════
+           HUÉSPEDES
+           ═══════════════════════════════════════════════════════ -->
+      <div class="section" id="sec-huespedes">
+        <p class="adm-eyebrow">Registro</p>
+        <h1 class="page-title">Huéspedes</h1>
+
+        <div class="filters" data-filter-table="tabla-huespedes">
+          <button class="filter-btn active" data-filter="all">Todos</button>
+          <button class="filter-btn" data-filter="actual">Actuales</button>
+          <button class="filter-btn" data-filter="proximo">Próximos</button>
+          <button class="filter-btn" data-filter="recurrente">Recurrentes</button>
+        </div>
+
+        <div class="adm-card">
+          <div class="adm-card-head"><span class="adm-card-title">Huéspedes Recientes</span></div>
+          <table class="data-table" id="tabla-huespedes">
+            <thead><tr>
+              <th>Nombre</th><th>Origen</th><th>Última estadía</th><th>Estadías</th><th>Estado</th>
+            </tr></thead>
+            <tbody id="tabla-huespedes-body">
+              <tr data-status="actual">
+                <td><span class="guest-avatar">1</span>HUESPED 1</td>
+                <td>Buenos Aires, AR</td><td>May 2026</td><td>3</td>
+                <td><span class="adm-badge adm-badge-active">Huésped actual</span></td>
+              </tr>
+              <tr data-status="proximo">
+                <td><span class="guest-avatar">2</span>HUESPED 2</td>
+                <td>Montevideo, UY</td><td>May 2026</td><td>1</td>
+                <td><span class="adm-badge adm-badge-ok">Próximo</span></td>
+              </tr>
+              <tr data-status="proximo">
+                <td><span class="guest-avatar">3</span>HUESPED 3</td>
+                <td>Santiago, CL</td><td>May 2026</td><td>2</td>
+                <td><span class="adm-badge adm-badge-ok">Próximo</span></td>
+              </tr>
+              <tr data-status="all">
+                <td><span class="guest-avatar">4</span>HUESPED 4</td>
+                <td>Ciudad de México, MX</td><td>Mar 2026</td><td>1</td>
+                <td><span class="adm-badge adm-badge-canceled">Canceló</span></td>
+              </tr>
+              <tr data-status="recurrente">
+                <td><span class="guest-avatar">5</span>HUESPED 5</td>
+                <td>Rosario, AR</td><td>Abr 2026</td><td>4</td>
+                <td><span class="adm-badge adm-badge-pending">Recurrente</span></td>
+              </tr>
+              <tr data-status="proximo">
+                <td><span class="guest-avatar">6</span>HUESPED 6</td>
+                <td>Lima, PE</td><td>May 2026</td><td>1</td>
+                <td><span class="adm-badge adm-badge-ok">Próximo</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div><!-- /content -->
+  </main>
+</div><!-- /admin-layout -->
+
+<!-- ── MODAL AGREGAR / EDITAR HABITACIÓN ────────────────────── -->
+<div class="adm-overlay" id="roomModal">
+  <div class="adm-panel">
+    <div class="adm-panel-head">
+      <div class="adm-panel-tag">Gestión de Habitaciones</div>
+      <div class="adm-panel-title" id="roomModalTitle">Agregar <em>habitación</em></div>
+      <button class="adm-panel-close" onclick="closeRoomModal()">✕</button>
+    </div>
+    <form id="roomForm" class="adm-panel-body">
+      <input type="hidden" id="roomId" />
+      <div class="adm-row">
+        <div class="adm-field"><label class="adm-label">Número</label><input id="roomNumero" name="room-numero" type="text" class="adm-input" placeholder="Ej. 106" required /></div>
+        <div class="adm-field"><label class="adm-label">Tipo</label>
+          <select id="roomTipo" class="adm-select" required>
+            <option value="estandar">Estándar</option>
+            <option value="suite">Suite</option>
+          </select>
+        </div>
+      </div>
+      <div class="adm-row">
+        <div class="adm-field full"><label class="adm-label">Nombre / Título</label><input id="roomTitulo" name="room-name" type="text" class="adm-input" placeholder="Ej. Suite del Lago" required /></div>
+      </div>
+      <div class="adm-row">
+        <div class="adm-field"><label class="adm-label">Precio / noche (USD)</label><input id="roomPrecio" type="number" min="0" step="0.01" class="adm-input" placeholder="220" required /></div>
+        <div class="adm-field"><label class="adm-label">Capacidad máxima</label><input id="roomCapacidad" type="number" min="1" class="adm-input" placeholder="2" required /></div>
+      </div>
+      <div class="adm-row">
+        <div class="adm-field"><label class="adm-label">
+          <input id="roomBalcon" type="checkbox" /> Tiene balcón
+        </label></div>
+      </div>
+      <p id="roomFeedback" style="margin:0;font-size:.8rem;color:#666;min-height:1em"></p>
+      <div class="adm-divider"></div>
+      <div style="display:flex;gap:12px;justify-content:space-between">
+        <button type="button" id="roomDeleteBtn" class="btn-ghost" style="display:none;color:#b00">Eliminar</button>
+        <button type="submit" class="btn-submit" style="margin-left:auto">Guardar Habitación</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script src="api.js"></script>
+<script src="auth.js"></script>
+<script src="app.js"></script>
+<script src="admin.js"></script>
+
+</body>
+</html>

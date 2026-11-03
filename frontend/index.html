@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hotel Refugio del Lago</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,300;1,300&family=Cormorant+Garamond:wght@300;400&family=Raleway:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <div id="cursor"></div>
+
+  <!-- NAVBAR -->
+  <nav id="navbar">
+    <a href="#" class="nav-logo-wrap">
+      <img src="img/HOTEL LOGO.png" alt="Hotel Refugio del Lago" />
+    </a>
+    <ul class="nav-links">
+      <li><a href="#about">Sobre el Hotel</a></li>
+      <li><a href="#rooms">Habitaciones</a></li>
+      <li><a href="#amenities">Servicios</a></li>
+      <li><a href="#reserva" class="nav-cta" id="navReservaBtn">Reservar</a></li>
+    </ul>
+    <button id="hamburger" aria-label="Menú"><span></span><span></span><span></span></button>
+  </nav>
+
+  <!-- NAVBAR MOBILE -->
+  <div id="mobileNav">
+    <button id="mobileClose" aria-label="Cerrar">✕</button>
+    <a href="#about"     class="mobile-link">Sobre el Hotel</a>
+    <a href="#rooms"     class="mobile-link">Habitaciones</a>
+    <a href="#amenities" class="mobile-link">Servicios</a>
+    <a href="#"          class="mobile-link mobile-link--cta mobile-reserva-btn">Reservar</a>
+  </div>
+
+  <!-- HERO -->
+  <section id="hero">
+    <div id="heroBg"></div>
+    <div class="hero-content">
+      <div class="container">
+
+        <div class="hero-heading">
+          <p class="hero-eyebrow reveal">Bienvenido a</p>
+          <h1 class="hero-h1 reveal delay-1">Refugio<br>Del<br><em>Lago.</em></h1>
+          <p class="hero-tagline reveal delay-2">Boutique Hotel — Naturaleza de lujo</p>
+        </div>
+
+        <div class="booking-panel reveal delay-3">
+          <div class="bp-field">
+            <span class="bp-label">Destino</span>
+            <input class="bp-input" type="text" placeholder="Refugio del Lago" readonly />
+          </div>
+          <div class="bp-field">
+            <span class="bp-label">Llegada</span>
+            <input class="bp-input" type="date" id="checkIn" />
+          </div>
+          <div class="bp-field">
+            <span class="bp-label">Salida</span>
+            <input class="bp-input" type="date" id="checkOut" />
+          </div>
+          <div class="bp-field">
+            <span class="bp-label">Huéspedes</span>
+            <select class="bp-input" id="guestCount">
+              <option value="1">1 persona</option>
+              <option value="2" selected>2 personas</option>
+              <option value="3">3 personas</option>
+              <option value="4">4 personas</option>
+              <option value="5">5+</option>
+            </select>
+          </div>
+          <button class="bp-btn" id="searchBtn">Ver disponibilidad</button>
+        </div>
+
+        <div class="scroll-indicator reveal delay-4">
+          <span>Explorar</span>
+          <div class="scroll-line"></div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- SOBRE EL HOTEL -->
+  <section id="about">
+    <div class="container">
+      <div class="about-grid">
+
+        <div class="about-img-stack reveal-left">
+          <div class="about-img-main">
+            <img src="https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=900&q=85" alt="Hotel lago" loading="lazy" />
+          </div>
+          <div class="about-img-accent">
+            <img src="https://images.unsplash.com/photo-1445019980597-93fa8acb246c?auto=format&fit=crop&w=700&q=85" alt="Interior" loading="lazy" />
+          </div>
+          <div class="about-badge reveal delay-2">
+            <p class="about-badge-num">00</p>
+            <p class="about-badge-label">Años de<br>hospitalidad</p>
+          </div>
+        </div>
+
+        <div class="about-text reveal-right">
+          <p class="eyebrow eyebrow--left">Sobre el Hotel</p>
+          <h2 class="section-title section-title--light">
+            Donde el paisaje<br>es el <em>lujo</em>
+          </h2>
+          <p class="about-body-text">Hotel Refugio del Lago nació de una visión simple: crear un espacio donde la naturaleza y el refinamiento convivan sin esfuerzo. Ubicado frente a las aguas cristalinas del lago, cada detalle fue diseñado para que el entorno sea el verdadero protagonista.</p>
+          <p class="about-body-text about-body-text--dim">Materiales naturales, arquitectura integrada al paisaje, y una hospitalidad que entiende que el verdadero lujo es el tiempo.</p>
+          <div class="about-stats">
+            <div><strong>24</strong><span>Suites &amp; habitaciones</span></div>
+            <div><strong>4.9</strong><span>Valoración media</span></div>
+            <div><strong>∞</strong><span>Vista al lago</span></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- HABITACIONES -->
+  <section id="rooms">
+    <div class="container">
+
+      <div class="rooms-header">
+        <div class="reveal">
+          <p class="eyebrow">Alojamiento</p>
+          <h2 class="section-title section-title--dark">
+            Habitaciones &amp;<br>Suites del lago
+          </h2>
+        </div>
+        <p class="section-description reveal delay-1">Vista al lago en todas las habitaciones. Cada espacio, una experiencia distinta.</p>
+      </div>
+
+      <div class="rooms-grid">
+        <div class="room-card reveal">
+          <img src="https://images.unsplash.com/photo-1618773928121-c32242e63f39?auto=format&fit=crop&w=1200&q=85" alt="Suite Panorámica" loading="lazy" />
+          <div class="room-overlay"></div>
+          <div class="room-info">
+            <p class="room-type">Suite principal</p>
+            <p class="room-name">Suite Panorámica del Lago</p>
+            <div class="room-detail">
+              <p class="room-price">USD 320 <span>/ noche</span></p>
+              <button class="room-btn">Reservar</button>
+            </div>
+          </div>
+        </div>
+        <div class="room-card reveal delay-1">
+          <img src="https://images.unsplash.com/photo-1631049307264-da0ec9d70304?auto=format&fit=crop&w=900&q=85" alt="Habitación Bosque" loading="lazy" />
+          <div class="room-overlay"></div>
+          <div class="room-info">
+            <p class="room-type">Deluxe</p>
+            <p class="room-name">Habitación Bosque</p>
+            <div class="room-detail">
+              <p class="room-price">USD 195 <span>/ noche</span></p>
+              <button class="room-btn">Reservar</button>
+            </div>
+          </div>
+        </div>
+        <div class="room-card reveal delay-2">
+          <img src="https://images.unsplash.com/photo-1591088398332-8a7791972843?auto=format&fit=crop&w=900&q=85" alt="Suite Jardín" loading="lazy" />
+          <div class="room-overlay"></div>
+          <div class="room-info">
+            <p class="room-type">Superior</p>
+            <p class="room-name">Suite Jardín &amp; Agua</p>
+            <div class="room-detail">
+              <p class="room-price">USD 240 <span>/ noche</span></p>
+              <button class="room-btn">Reservar</button>
+            </div>
+          </div>
+        </div>
+        <div class="room-card reveal delay-1">
+          <img src="https://images.unsplash.com/photo-1602002418082-a4443e081dd1?auto=format&fit=crop&w=900&q=85" alt="Cabaña Privada" loading="lazy" />
+          <div class="room-overlay"></div>
+          <div class="room-info">
+            <p class="room-type">Exclusivo</p>
+            <p class="room-name">Cabaña Privada</p>
+            <div class="room-detail">
+              <p class="room-price">USD 410 <span>/ noche</span></p>
+              <button class="room-btn">Reservar</button>
+            </div>
+          </div>
+        </div>
+        <div class="room-card reveal delay-2">
+          <img src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=900&q=85" alt="Refugio del Pinar" loading="lazy" />
+          <div class="room-overlay"></div>
+          <div class="room-info">
+            <p class="room-type">Junior Suite</p>
+            <p class="room-name">Refugio del Pinar</p>
+            <div class="room-detail">
+              <p class="room-price">USD 170 <span>/ noche</span></p>
+              <button class="room-btn">Reservar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- SERVICIOS -->
+  <section id="amenities">
+    <div class="container">
+
+      <div class="amenities-header reveal">
+        <p class="eyebrow eyebrow--center">Servicios</p>
+        <h2 class="section-title section-title--dark section-title--sm">Una experiencia completa</h2>
+      </div>
+
+      <div class="amenity-grid reveal delay-1">
+        <div class="amenity-item">
+          <svg class="amenity-icon" viewBox="0 0 44 44" fill="none" stroke="currentColor" stroke-width="1.3">
+            <circle cx="22" cy="22" r="10"/>
+            <path d="M22 12 C18 8 10 10 8 16"/><path d="M22 32 C26 36 34 34 36 28"/>
+            <path d="M12 22 C8 26 10 34 16 36"/><path d="M32 22 C36 18 34 10 28 8"/>
+          </svg>
+          <p class="amenity-name">Spa &amp; Wellness</p>
+          <p class="amenity-desc">Rituales de agua y piedra caliente con vista al lago</p>
+        </div>
+        <div class="amenity-item">
+          <svg class="amenity-icon" viewBox="0 0 44 44" fill="none" stroke="currentColor" stroke-width="1.3">
+            <path d="M6 32 Q22 10 38 32"/>
+            <line x1="6" y1="32" x2="38" y2="32"/><line x1="22" y1="32" x2="22" y2="38"/>
+            <path d="M14 38 L30 38"/>
+          </svg>
+          <p class="amenity-name">Vista al Lago</p>
+          <p class="amenity-desc">Todas las habitaciones con orientación panorámica</p>
+        </div>
+        <div class="amenity-item">
+          <svg class="amenity-icon" viewBox="0 0 44 44" fill="none" stroke="currentColor" stroke-width="1.3">
+            <rect x="8" y="16" width="28" height="20" rx="2"/>
+            <path d="M14 16 V12 Q14 8 22 8 Q30 8 30 12 V16"/>
+            <circle cx="22" cy="26" r="3"/>
+          </svg>
+          <p class="amenity-name">Desayuno Gourmet</p>
+          <p class="amenity-desc">Productos locales servidos en el jardín o la habitación</p>
+        </div>
+        <div class="amenity-item">
+          <svg class="amenity-icon" viewBox="0 0 44 44" fill="none" stroke="currentColor" stroke-width="1.3">
+            <path d="M22 8 L22 22 L30 30"/><circle cx="22" cy="22" r="16"/>
+            <path d="M8 22 L14 22"/><path d="M30 22 L36 22"/>
+          </svg>
+          <p class="amenity-name">Actividades en Lago</p>
+          <p class="amenity-desc">Kayak, pesca y paseos en embarcación privada</p>
+        </div>
+        <div class="amenity-item">
+          <svg class="amenity-icon" viewBox="0 0 44 44" fill="none" stroke="currentColor" stroke-width="1.3">
+            <path d="M10 34 C10 24 16 14 22 10 C28 14 34 24 34 34"/>
+            <path d="M16 34 C16 28 19 20 22 16 C25 20 28 28 28 34"/>
+            <line x1="10" y1="34" x2="34" y2="34"/>
+          </svg>
+          <p class="amenity-name">Gastronomía</p>
+          <p class="amenity-desc">Restaurante con cocina de autor y bodega curada</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- RESERVA -->
+  <section id="reserva">
+    <div class="cta-inner reveal">
+      <p class="eyebrow eyebrow--center">Reservas</p>
+      <h2 class="section-title section-title--dark">
+        Tu próximo<br><em>momento de calma</em>
+      </h2>
+      <p class="section-description">Elegí tu habitación y completá tu reserva en minutos, de forma completamente digital.</p>
+      <button class="btn btn--primary" id="ctaReservaBtn">Comenzar reserva</button>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-top">
+      <div class="footer-brand">
+        <img src="img/HOTEL LOGO.png" alt="Hotel Refugio del Lago" />
+        <p>Un refugio de lujo frente al lago, donde la naturaleza define cada momento.</p>
+        <small>Uruguay · Est. 0000</small>
+      </div>
+      <div class="footer-col">
+        <h4>El hotel</h4>
+        <ul>
+          <li><a href="#about">Sobre el Hotel</a></li>
+          <li><a href="#rooms">Habitaciones</a></li>
+          <li><a href="#amenities">Servicios</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Información</h4>
+        <ul>
+          <li><a href="#">Políticas de reserva</a></li>
+          <li><a href="#">Llegada y salida</a></li>
+          <li><a href="#">Preguntas frecuentes</a></li>
+          <li><a href="#">Accesibilidad</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contacto</h4>
+        <ul>
+          <li><a href="#">info@refugiodellago.uy</a></li>
+          <li><a href="#">+598 99 999 999</a></li>
+          <li><a href="#">Ruta 12 km 128, Uruguay</a></li>
+          <li><a href="#" class="gold">Instagram</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 Hotel Refugio del Lago · Todos los derechos reservados</p>
+      <div class="footer-socials">
+        <a href="#">Instagram</a>
+        <a href="#">WhatsApp</a>
+        <a href="#">Booking</a>
+        <a href="admin.html" class="footer-admin-link">Administración</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- MODAL DE RESERVA -->
+  <div id="reservaModal">
+    <div class="modal-backdrop" id="modalBackdrop"></div>
+    <div class="modal-card">
+      <div class="modal-header">
+        <p class="modal-eyebrow">Refugio del Lago</p>
+        <h3 class="modal-title">Tu reserva<br><em>digital</em></h3>
+        <button class="modal-close" id="modalClose" aria-label="Cerrar">✕</button>
+      </div>
+      <div class="modal-body">
+        <form id="reservaForm">
+          <div class="modal-row">
+            <div class="modal-field">
+              <label class="modal-label">Nombre</label>
+              <input class="modal-input" type="text" id="modalNombre" placeholder="Tu nombre completo" required />
+            </div>
+            <div class="modal-field">
+              <label class="modal-label">Email</label>
+              <input class="modal-input" type="email" id="modalEmail" placeholder="tu@email.com" required />
+            </div>
+          </div>
+          <div class="modal-row">
+            <div class="modal-field">
+              <label class="modal-label">Llegada</label>
+              <input class="modal-input" type="date" id="modalCheckIn" required />
+            </div>
+            <div class="modal-field">
+              <label class="modal-label">Salida</label>
+              <input class="modal-input" type="date" id="modalCheckOut" required />
+            </div>
+          </div>
+          <div class="modal-row">
+            <div class="modal-field">
+              <label class="modal-label">Huéspedes</label>
+              <select class="modal-input" id="modalHuespedes">
+                <option value="1">1 persona</option>
+                <option value="2" selected>2 personas</option>
+                <option value="3">3 personas</option>
+                <option value="4">4 personas</option>
+                <option value="5">5+</option>
+              </select>
+            </div>
+            <div class="modal-field">
+              <label class="modal-label">Tipo de habitación</label>
+              <select class="modal-input" id="modalHabitacion" required>
+                <option value="">Cargando opciones...</option>
+              </select>
+            </div>
+          </div>
+          <div class="modal-divider"></div>
+          <button class="modal-submit" type="submit">Confirmar reserva</button>
+          <p class="modal-note" id="modalFeedback">Reserva 100% digital · Sin intermediarios · Confirmación inmediata</p>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <script src="api.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
